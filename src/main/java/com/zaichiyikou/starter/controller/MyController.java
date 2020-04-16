@@ -12,4 +12,16 @@ public class MyController {
         model.addAttribute("msg", "hello shiro");
         return "index.html";
     }
+    
+    @RequestMapping(value = "/add")
+    public String add(Model model) {
+        model.addAttribute("msg", "add");
+        return "add.html";
+    }
+    
+    @RequestMapping(value = "/update")
+    public String update(Model model) {
+        model.addAttribute("msg", "update");
+        return "update.html";
+    }
 }
