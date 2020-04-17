@@ -13,15 +13,21 @@ public class MyController {
         return "index.html";
     }
     
-    @RequestMapping(value = "/add")
+    @RequestMapping(value = "/user/add")
     public String add(Model model) {
         model.addAttribute("msg", "add");
-        return "add.html";
+        return "user/add.html";
     }
     
-    @RequestMapping(value = "/update")
+    @RequestMapping(value = "/user/update")
     public String update(Model model) {
         model.addAttribute("msg", "update");
-        return "update.html";
+        return "user/update.html";
+    }
+    
+    @RequestMapping(value = "/login")
+    public String login(Model model) {
+        model.addAttribute("msg", "login");
+        return "login.html";
     }
 }
