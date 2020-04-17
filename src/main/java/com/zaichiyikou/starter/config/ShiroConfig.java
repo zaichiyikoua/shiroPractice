@@ -48,6 +48,7 @@ public class ShiroConfig {
         return manager;
     }
     // 创建realm对象
+    // 用户认证一般都会在这个realm对象中
     @Bean(name = "userRealm")
     public UserRealm userRealm() {
         return new UserRealm();
