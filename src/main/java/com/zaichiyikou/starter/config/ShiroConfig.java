@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -16,7 +17,7 @@ public class ShiroConfig {
     //配置的时候从下往上配置
     
     // shiroFilterBean
-    @Bean 
+    @Bean(name = "ShiroFilterFactoryBean") 
     public ShiroFilterFactoryBean getShiroFilterFactoryBean(@Qualifier("securityManager")DefaultWebSecurityManager securityManager) {
         ShiroFilterFactoryBean factoryBean = new ShiroFilterFactoryBean();
         // 设置安全管理器
@@ -39,6 +40,7 @@ public class ShiroConfig {
         
         return factoryBean;
     }
+    
     // defaultWebSecuriryManager
     @Bean(name = "securityManager")
     public DefaultWebSecurityManager getDefaultWebSecurityManager(@Qualifier("userRealm") UserRealm userRealm) {
@@ -47,6 +49,7 @@ public class ShiroConfig {
         manager.setRealm(userRealm);
         return manager;
     }
+    
     // 创建realm对象
     // 用户认证一般都会在这个realm对象中
     @Bean(name = "userRealm")
