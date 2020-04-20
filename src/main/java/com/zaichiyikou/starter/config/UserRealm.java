@@ -10,6 +10,7 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
+import org.apache.shiro.util.ByteSource;
 
 // 自定义的 userRealm 需要去继承认证的这个AuthorizingRealm
 public class UserRealm extends AuthorizingRealm {
@@ -42,8 +43,12 @@ public class UserRealm extends AuthorizingRealm {
             // 这里就会抛出异常 用户名不存在
             return null;
         }
-        // 密码认证，由shiro自己做
-        return new SimpleAuthenticationInfo("", password, "");
+        // 加盐 这里面的参数应该是生成用户时的salt字段值，这里用password代替
+        ByteSource credentialsSalt = ByteSource.Util.bytes(password);
+        // 密码认证，由shiro自己做 最重要的就是第二个参数，由密文比对器进行比对
+        // return new SimpleAuthenticationInfo("", password, realmName);
+        // 如果有盐salt，那么用多一个参数
+        return new SimpleAuthenticationInfo(username, password, credentialsSalt, getName());
     }
 
 }
